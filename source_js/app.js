@@ -18,6 +18,10 @@ app.config(['$routeProvider', function($routeProvider) {
     templateUrl: 'partials/llamalist.html',
     controller: 'LlamaListController'
   }).
+  when('/search', {
+    templateUrl: 'partials/search.html',
+    controller: 'recipeCtrl'
+  }).
   otherwise({
     redirectTo: '/settings'
   });
