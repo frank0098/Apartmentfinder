@@ -2,7 +2,7 @@
 var mp4Controllers = angular.module('mp4Controllers', ['elasticsearch']);
 
 
-mp4Controllers.controller('recipeCtrl', ['recipeService', '$scope', '$location', function(recipes, $scope, $location) {
+mp4Controllers.controller('searchCtrl', ['recipeService', '$scope', '$location', function(recipes, $scope, $location) {
   // Provide some nice initial choices
   var initChoices = [
       "rendang",
@@ -61,44 +61,13 @@ mp4Controllers.controller('recipeCtrl', ['recipeService', '$scope', '$location',
 
 
 
-mp4Controllers.controller('FirstController', ['$scope', 'CommonData'  , function($scope, CommonData) {
+mp4Controllers.controller('homeController', ['$scope', 'CommonData'  , function($scope, CommonData) {
   $scope.data = "";
    $scope.displayText = ""
 
   $scope.setData = function(){
     CommonData.setData($scope.data);
     $scope.displayText = "Data set"
-
-  };
-
-}]);
-
-mp4Controllers.controller('SecondController', ['$scope', 'CommonData' , function($scope, CommonData) {
-  $scope.data = "";
-
-  $scope.getData = function(){
-    $scope.data = CommonData.getData();
-
-  };
-
-}]);
-
-
-mp4Controllers.controller('LlamaListController', ['$scope', '$http', 'Llamas', '$window' , function($scope, $http,  Llamas, $window) {
-
-  Llamas.get().success(function(data){
-    $scope.llamas = data;
-  });
-
-
-}]);
-
-mp4Controllers.controller('SettingsController', ['$scope' , '$window' , function($scope, $window) {
-  $scope.url = $window.sessionStorage.baseurl;
-
-  $scope.setUrl = function(){
-    $window.sessionStorage.baseurl = $scope.url;
-    $scope.displayText = "URL set";
 
   };
 
