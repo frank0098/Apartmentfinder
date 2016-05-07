@@ -1,6 +1,6 @@
 var mp4Services = angular.module('mp4Services', ['elasticsearch']);
 
-mp4Services.factory('CommonData', function(){
+mp4Services.factory('searchdetaildata', function(){
     var data = "";
     return{
         getData : function(){
@@ -21,7 +21,7 @@ mp4Services.factory('Llamas', function($http, $window) {
     }
 });
 
-mp4Services.factory('recipeService', ['$q', 'esFactory', '$location', function($q, elasticsearch, $location) {
+mp4Services.factory('apartmentService', ['$q', 'esFactory', '$location', function($q, elasticsearch, $location) {
   var client = elasticsearch({
     host: $location.host() + ':9200'
   });
@@ -40,8 +40,8 @@ mp4Services.factory('recipeService', ['$q', 'esFactory', '$location', function($
     };
 
     client.search({
-      index: 'recipes',
-      type: 'recipe',
+      index: 'apartments',
+      type: 'apartment',
       body: {
         size: 10,
         from: (offset || 0) * 10,
@@ -61,7 +61,7 @@ mp4Services.factory('recipeService', ['$q', 'esFactory', '$location', function($
 
     return deferred.promise;
   };
-
+  
   // Since this is a factory method, we return an object representing the actual service.
   return {
     search: search

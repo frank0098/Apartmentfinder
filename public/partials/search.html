@@ -2,38 +2,96 @@
 
   <!-- The search box puts the term into $scope.searchTerm
        and calls $scope.search() on submit -->
-  <section class="searchField">
-    <form ng-submit="search()">
-      <input type="text" ng-model="searchTerm">
-      <input type="submit" value="Search for recipes">
-    </form>
-  </section>
+  <header class="row">
 
+    <div class="small-12 columns">
+      <div class="row">
+        <div class="small-4 columns">
+          <a class="">ApartmentFinder</a>
+        </div>
+        <div class="small-8 columns">
+          <div class="small-6 small-offset-6 columns">
+            <div class="small-6 columns">
+               <a class="" >TEAM</a>
+            </div>
+            <div class="small-6 columns">
+               <a>About</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    
+  </header>
+  <br>
+  <div class="small-10 small-centered">
+      <section class="searchField">
+      <form ng-submit="search()">
+        <input type="text" ng-model="searchTerm">
+        <input  class="button searchbutton" type="submit" value="Search for apartment">
+      </form>
+    </section>
+
+    <div class="small-8 columns">
+      <section class="results small-12 small-centered columns">
+      <div class="no-recipes" ng-hide="apartments.length">No results</div>
+
+      <!-- We show one of these elements for each recipe in $scope.recipes.
+           The ng-cloak directive prevents our templates from showing on load. -->
+      <article class="apartment thumbnail listview" ng-repeat="apartment in apartments" ng-cloak>
+        <div class="small-10 columns">
+          {{apartment.Address}}
+        </div>
+         <div class="small-2 columns">
+          <div class="button" ng-click="accessdetail(recipe)">Detail</div>
+        </div>
+ <!--        <a ng-href="{{recipe.url}}">{{recipe.name}} </a>
+
+        <a href="#/list/{{movie.rank-1}}" class="thumb ">
+            <div class="row">
+              <div class="small-3 columns">
+                <img class="listimg" src="./data/images/{{movie.imdbID}}.jpg" >
+              </div>
+              <div class="small-9 columns">
+                <br><h2>{{movie.title}}</h2>
+                <p> Rank: {{movie.rank}}<p>
+              </div>
+          </div>
+          </a> -->
+
+
+       <!--  <h2>
+          <a ng-href="{{recipe.url}}">{{recipe.name}}</a>
+        </h2>
+        <ul>
+          <li ng-repeat="ingredient in recipe.ingredients">{{ ingredient }}</li>
+        </ul>
+
+        <p>
+          {{recipe.description}}
+          <a ng-href="{{recipe.url}}">... more at {{recipe.source}}</a>
+        </p> -->
+      </article>
+
+      <!-- We put a link that calls $scope.loadMore to load more recipes
+           and append them to the results.-->
+      <div class="load-more" ng-hide="allResults" ng-cloak>
+        <a class="button" ng-click="loadMore()">More...</a>
+      </div>
+    </section>
+
+    </div>
+    <div class="small-4 columns">
+        <div class="small-11 small-centered columns">
+        <h4>Apartment you might also feel interested..</h4>
+      </div>
+    </div>
+  </div>
+  <br><br><br><br><br><br><br><br>
+  <footer class="footer">
+  </footer>
   <!-- In results, we show a message if there are no results, and
        a list of results otherwise. -->
-  <section class="results">
-    <div class="no-recipes" ng-hide="recipes.length">No results</div>
-
-    <!-- We show one of these elements for each recipe in $scope.recipes.
-         The ng-cloak directive prevents our templates from showing on load. -->
-    <article class="recipe" ng-repeat="recipe in recipes" ng-cloak>
-      <h2>
-        <a ng-href="{{recipe.url}}">{{recipe.name}}</a>
-      </h2>
-      <ul>
-        <li ng-repeat="ingredient in recipe.ingredients">{{ ingredient }}</li>
-      </ul>
-
-      <p>
-        {{recipe.description}}
-        <a ng-href="{{recipe.url}}">... more at {{recipe.source}}</a>
-      </p>
-    </article>
-
-    <!-- We put a link that calls $scope.loadMore to load more recipes
-         and append them to the results.-->
-    <div class="load-more" ng-hide="allResults" ng-cloak>
-      <a ng-click="loadMore()">More...</a>
-    </div>
-  </section>
+  
 </div>

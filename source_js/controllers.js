@@ -2,7 +2,7 @@
 var mp4Controllers = angular.module('mp4Controllers', ['elasticsearch']);
 
 
-mp4Controllers.controller('searchCtrl', ['recipeService', '$scope', '$location', function(recipes, $scope, $location) {
+mp4Controllers.controller('searchCtrl', ['apartmentService', '$scope', '$location','searchdetaildata', function(apartments, $scope, $location,searchdetaildata) {
   // Provide some nice initial choices
   var initChoices = [
       "rendang",
@@ -17,7 +17,7 @@ mp4Controllers.controller('searchCtrl', ['recipeService', '$scope', '$location',
   var idx = Math.floor(Math.random() * initChoices.length);
 
   // Initialize the scope defaults.
-  $scope.recipes = [];        // An array of recipe results to display
+  $scope.apartments = [];        // An array of recipe results to display
   $scope.page = 0;            // A counter to keep track of our current page
   $scope.allResults = false;  // Whether or not all results have been found.
 
@@ -30,7 +30,7 @@ mp4Controllers.controller('searchCtrl', ['recipeService', '$scope', '$location',
    */
   $scope.search = function() {
     $scope.page = 0;
-    $scope.recipes = [];
+    $scope.apartments = [];
     $scope.allResults = false;
     $location.search({'q': $scope.searchTerm});
     $scope.loadMore();
@@ -42,7 +42,7 @@ mp4Controllers.controller('searchCtrl', ['recipeService', '$scope', '$location',
    * whether all results have been returned (i.e. were 10 results returned?)
    */
   $scope.loadMore = function() {
-    recipes.search($scope.searchTerm, $scope.page++).then(function(results) {
+    apartments.search($scope.searchTerm, $scope.page++).then(function(results) {
       if (results.length !== 10) {
         $scope.allResults = true;
       }
@@ -50,25 +50,27 @@ mp4Controllers.controller('searchCtrl', ['recipeService', '$scope', '$location',
       var ii = 0;
 
       for (; ii < results.length; ii++) {
-        $scope.recipes.push(results[ii]);
+        $scope.apartments.push(results[ii]);
       }
     });
   };
+  $scope.accessdetail=function(data){
+    searchdetaildata.setData(data);
+    $location.url("/searchdetail");
+  }
 
   // Load results on first run
   $scope.loadMore();
 }]);
 
+mp4Controllers.controller('searchdetailCtrl', ['$scope', 'searchdetaildata'  , function($scope, searchdetaildata) {
+  $scope.info=searchdetaildata.getData();
 
+}]);
 
-mp4Controllers.controller('homeController', ['$scope', 'CommonData'  , function($scope, CommonData) {
+mp4Controllers.controller('homeController', ['$scope'  , function($scope) {
   $scope.data = "";
    $scope.displayText = ""
 
-  $scope.setData = function(){
-    CommonData.setData($scope.data);
-    $scope.displayText = "Data set"
-
-  };
 
 }]);
