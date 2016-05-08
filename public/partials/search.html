@@ -1,13 +1,14 @@
-<div  ng-controller="searchCtrl">
+<div >
 
   <!-- The search box puts the term into $scope.searchTerm
        and calls $scope.search() on submit -->
-  <header class="row">
+
+       <header class="row">
 
     <div class="small-12 columns">
       <div class="row">
         <div class="small-4 columns">
-          <a class="">ApartmentFinder</a>
+          <a href="#/search">ApartmentFinder</a>
         </div>
         <div class="small-8 columns">
           <div class="small-6 small-offset-6 columns">
@@ -24,16 +25,18 @@
     </div>
     
   </header>
+
+
   <br>
   <div class="small-10 small-centered">
       <section class="searchField">
       <form ng-submit="search()">
         <input type="text" ng-model="searchTerm">
-        <input  class="button searchbutton" type="submit" value="Search for apartment">
+        <input  class="success button thebutton" type="submit" value="Search for apartment">
       </form>
     </section>
 
-    <div class="small-8 columns">
+    <div class="small-7 columns">
       <section class="results small-12 small-centered columns">
       <div class="no-recipes" ng-hide="apartments.length">No results</div>
 
@@ -44,34 +47,9 @@
           {{apartment.Address}}
         </div>
          <div class="small-2 columns">
-          <div class="button" ng-click="accessdetail(recipe)">Detail</div>
+          <div class="button" ng-click="accessdetail(apartment)">Detail</div>
         </div>
- <!--        <a ng-href="{{recipe.url}}">{{recipe.name}} </a>
 
-        <a href="#/list/{{movie.rank-1}}" class="thumb ">
-            <div class="row">
-              <div class="small-3 columns">
-                <img class="listimg" src="./data/images/{{movie.imdbID}}.jpg" >
-              </div>
-              <div class="small-9 columns">
-                <br><h2>{{movie.title}}</h2>
-                <p> Rank: {{movie.rank}}<p>
-              </div>
-          </div>
-          </a> -->
-
-
-       <!--  <h2>
-          <a ng-href="{{recipe.url}}">{{recipe.name}}</a>
-        </h2>
-        <ul>
-          <li ng-repeat="ingredient in recipe.ingredients">{{ ingredient }}</li>
-        </ul>
-
-        <p>
-          {{recipe.description}}
-          <a ng-href="{{recipe.url}}">... more at {{recipe.source}}</a>
-        </p> -->
       </article>
 
       <!-- We put a link that calls $scope.loadMore to load more recipes
@@ -82,9 +60,39 @@
     </section>
 
     </div>
-    <div class="small-4 columns">
-        <div class="small-11 small-centered columns">
-        <h4>Apartment you might also feel interested..</h4>
+    <div class="small-5 columns">
+        <div class="small-12 small-centered columns">
+        <!-- <h4>Apartment you might also feel interested..</h4> -->
+<!--         <ng-map center="[40.74, -74.18]">
+            <marker position="{{info.Address}}"
+              title="You are here"
+              animation="Animation.BOUNCE"
+              centered="true"></marker>
+          </ng-map> -->
+
+           <ng-map zoom="15" center="{{cur}}">
+      <marker ng-repeat="p in positions"
+        position="{{p.pos}}"
+        data="{{$scope.data[$index]}}"
+        title="pos: {{p.pos}}"></marker>
+    </ng-map>
+    <h4>Apartment you might also feel interested..</h4>
+    <article class="apartment thumbnail listview" ng-repeat="apartment in recommend" ng-cloak>
+        <div class="small-8 columns">
+          {{apartment.Address}}
+        </div>
+         <div class="small-4 columns">
+          <div class="button" ng-click="accessdetail(apartment)">Detail</div>
+        </div>
+
+        <!-- <div class="small-2 columns">
+          <div class="button alert">Dislike</div>
+        </div> -->
+
+        
+
+      </article>
+
       </div>
     </div>
   </div>
